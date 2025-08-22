@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Simple Goal Tracker</title>
+  <link rel="stylesheet" href="styles.css" />
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Simple Goal Tracker</h1>
+      <div class="toolbar" role="group" aria-label="Week controls">
+        <button id="prevWeek" class="btn-secondary" title="Previous week">◀︎</button>
+        <input id="weekDate" type="date" aria-label="Choose a date to view its week" />
+        <button id="nextWeek" class="btn-secondary" title="Next week">▶︎</button>
+      </div>
+    </header>
+
+    <div class="grid">
+      <!-- Left: Progress & Sessions -->
+      <section class="card" aria-labelledby="progress-heading">
+        <h2 id="progress-heading">This Week's Progress</h2>
+        <p class="muted" id="weekLabel"></p>
+        <div id="goalsList" class="list" aria-live="polite"></div>
+        <div class="footer hint">Tip: pick a date above to navigate weeks. Data is saved locally in your browser.</div>
+      </section>
+
+      <!-- Right: Create forms & History -->
+      <section class="card" aria-labelledby="create-heading">
+        <h2 id="create-heading">Create</h2>
+        <form id="goalForm" autocomplete="off">
+          <div class="row">
+            <div class="grow">
+              <label for="goalName">Goal name</label>
+              <input id="goalName" placeholder="e.g., Run" required />
+            </div>
+          </div>
+          <div class="row">
+            <div class="grow">
+              <label for="goalWeekly">Amount per week</label>
+              <input id="goalWeekly" type="number" min="0" step="0.01" placeholder="e.g., 20" required />
+            </div>
+            <div style="width:140px">
+              <label for="goalUnit">Unit</label>
+              <input id="goalUnit" placeholder="e.g., km" required />
+            </div>
+          </div>
+          <div class="row" style="margin-top:8px">
+            <button type="submit">Add Goal</button>
+            <button type="button" id="clearAll" class="btn-danger" title="Remove all goals & sessions">Clear All</button>
+          </div>
+        </form>
+
+        <hr style="border:none;border-top:1px solid var(--border); margin:14px 0" />
+
+        <form id="sessionForm" autocomplete="off">
+          <div class="row">
+            <div class="grow">
+              <label for="sessionGoal">Goal</label>
+              <select id="sessionGoal" required></select>
+            </div>
+            <div style="width:120px">
+              <label for="sessionAmount">Amount</label>
+              <input id="sessionAmount" type="number" min="0" step="0.01" placeholder="e.g., 5" required />
+            </div>
+          </div>
+          <div class="row">
+            <div style="width:180px">
+              <label for="sessionDate">Date</label>
+              <input id="sessionDate" type="date" required />
+            </div>
+            <div class="spacer"></div>
+            <button type="submit">Add Session</button>
+          </div>
+        </form>
+
+        <hr style="border:none;border-top:1px solid var(--border); margin:14px 0" />
+
+        <h2 style="margin-top:0">Recent Sessions</h2>
+        <div id="sessionsList" class="list"></div>
+      </section>
+    </div>
+
+    <div class="footer">Made with ♥ — stays on your device using Local Storage.</div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,167 @@
+/* Calm, modern theme for Goal Tracker (light + auto dark mode)
+   Drop-in replacement for styles.css
+*/
+
+/* ---------- Design tokens ---------- */
+:root{
+  /* Colors: light mode */
+  --bg: #f6f7fb;            /* soft grey-blue background */
+  --panel: #ffffff;         /* cards */
+  --text: #0f172a;          /* slate-900 */
+  --muted: #64748b;         /* slate-500 */
+  --border: #e5e7eb;        /* gray-200 */
+  --shadow: 0 10px 30px rgba(15, 23, 42, .06);
+  --radius: 14px;
+
+  /* Accents */
+  --primary: #5fa8d3;       /* calm blue */
+  --primary-weak: #7dbde0;  /* lighter blue */
+  --success: #22c55e;       /* used subtly */
+  --danger: #ef4444;
+
+  /* Surfaces */
+  --surface-1: #ffffff;
+  --surface-2: #f2f6fb;     /* subtle contrast stripe */
+}
+
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg: #0e1320;
+    --panel: #121a2a;
+    --text: #e5e7eb;
+    --muted: #9aa7ba;
+    --border: #1f2937;
+    --shadow: 0 10px 30px rgba(0,0,0,.35);
+
+    --primary: #66b3dd;
+    --primary-weak: #3c8fc4;
+    --surface-1: #101827;
+    --surface-2: #0b1422;
+  }
+}
+
+/* ---------- Base ---------- */
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;
+  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Inter, "Helvetica Neue", Arial, "Noto Sans";
+  line-height:1.35;
+  color:var(--text);
+  background:
+    radial-gradient(1200px 600px at 10% -10%, rgba(95,168,211,.25), transparent 60%),
+    radial-gradient(1000px 500px at 110% 10%, rgba(125,189,224,.2), transparent 50%),
+    var(--bg);
+}
+
+/* ---------- Layout ---------- */
+.container{max-width:980px; margin:0 auto; padding:20px}
+header{display:flex; align-items:center; justify-content:space-between; gap:12px; margin:4px 0 16px}
+header h1{margin:0; font-size:clamp(1.35rem, 1.2rem + 1.2vw, 1.9rem); letter-spacing:.2px}
+
+.grid{display:grid; gap:14px}
+@media(min-width:860px){
+  .grid{grid-template-columns:1.1fr .9fr}
+}
+
+/* ---------- Surfaces ---------- */
+.card{
+  background:var(--panel);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  box-shadow:var(--shadow);
+  padding:16px;
+}
+.card h2{margin:0 0 10px; font-size:1.05rem}
+.muted{color:var(--muted)}
+.hint{font-size:.9rem; color:var(--muted)}
+
+/* ---------- Flex helpers ---------- */
+.row{display:flex; gap:10px; align-items:center; flex-wrap:wrap}
+.grow{flex:1}
+.toolbar{display:flex; align-items:center; gap:10px; flex-wrap:wrap}
+.spacer{flex:1}
+.footer{margin:16px 0 0; text-align:center; color:var(--muted); font-size:.9rem}
+
+/* ---------- Forms ---------- */
+label{display:block; font-size:.9rem; color:var(--muted); margin:8px 0 6px}
+input, select{
+  width:100%; padding:11px 12px; border-radius:12px; border:1px solid var(--border);
+  background:var(--surface-1); color:var(--text);
+  transition:border-color .15s ease, box-shadow .15s ease;
+}
+input::placeholder{color:color-mix(in oklab, var(--muted) 70%, transparent)}
+input:focus, select:focus{
+  outline:none;
+  border-color:color-mix(in oklab, var(--primary) 70%, var(--border));
+  box-shadow:0 0 0 4px color-mix(in oklab, var(--primary) 18%, transparent);
+}
+
+/* ---------- Buttons ---------- */
+button{
+  border:none; padding:10px 14px; border-radius:12px; cursor:pointer; font-weight:600; letter-spacing:.2px;
+  background:var(--primary); color:white; transition:transform .08s ease, filter .15s ease, box-shadow .15s ease;
+  box-shadow:0 6px 18px rgba(95,168,211,.25);
+}
+button:hover{filter:brightness(1.05)}
+button:active{transform:translateY(1px)}
+button:focus-visible{outline:none; box-shadow:0 0 0 4px color-mix(in oklab, var(--primary) 22%, transparent)}
+
+.btn-secondary{background:var(--surface-2); color:inherit; border:1px solid var(--border); box-shadow:none}
+.btn-secondary:hover{filter:none; background:color-mix(in oklab, var(--surface-2) 85%, white)}
+
+.btn-danger{
+  background:color-mix(in oklab, var(--danger) 85%, white);
+  color:#7f1d1d;
+  border:1px solid color-mix(in oklab, var(--danger) 40%, var(--border));
+}
+@media (prefers-color-scheme: dark){
+  .btn-danger{background:color-mix(in oklab, var(--danger) 35%, var(--panel)); color:#ffecec}
+}
+
+/* ---------- Lists & items ---------- */
+.list{display:grid; gap:10px}
+.empty{
+  padding:16px; text-align:center; color:var(--muted);
+  border:1px dashed var(--border); border-radius:12px; background:var(--surface-2)
+}
+
+/* Goal card */
+.goal{
+  display:grid; grid-template-columns: 1fr auto; gap:10px; padding:12px;
+  border-radius:14px; border:1px solid var(--border);
+  background:linear-gradient(180deg, color-mix(in oklab, var(--primary) 4%, var(--panel)), var(--panel));
+}
+.goal .title{font-weight:700}
+.goal .meta{font-size:.92rem; color:var(--muted)}
+
+/* Session row */
+.session{
+  display:grid; grid-template-columns: 1fr auto auto; gap:10px; align-items:center;
+  padding:10px 12px; border:1px solid var(--border); border-radius:12px; background:var(--surface-1);
+}
+.session .amount{font-weight:700}
+.session .date{color:var(--muted); font-size:.92rem}
+.session button{padding:8px 12px; border-radius:10px}
+
+/* Progress */
+.progress{
+  position:relative; height:12px; width:100%;
+  background:linear-gradient(180deg, color-mix(in oklab, var(--primary) 6%, var(--surface-2)), var(--surface-2));
+  border-radius:999px; overflow:hidden; border:1px solid var(--border)
+}
+.progress > span{
+  position:absolute; inset:0; width:0%;
+  background:linear-gradient(90deg, var(--primary), var(--primary-weak));
+}
+
+/* ---------- Accessibility tweaks ---------- */
+@media (prefers-reduced-motion: reduce){
+  *{transition:none !important}
+}
+
+@media (max-width:420px){
+  .session{grid-template-columns: 1fr auto;}
+  .session button.btn-secondary{order:2}
+  .session button.btn-danger{order:3}
+}
